@@ -1,5 +1,9 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlcehmy
+
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///todo.db"
+
 
 @app.route('/')
 def hello_world():
