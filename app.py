@@ -4,6 +4,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///todo.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 class Todo(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
@@ -22,5 +24,7 @@ def hello_world():
 def products():
     return 'this is product page'
 
-if __name__== "__main__":
-    app.run(debug=True, port=8000)
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
